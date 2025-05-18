@@ -1,17 +1,81 @@
 
 import React from 'react';
 
+const HPLogo = () => (
+  <svg viewBox="0 0 70 30" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="HP Logo">
+    <text x="35" y="22" fontFamily="Arial, Helvetica, sans-serif" fontSize="24" fontWeight="bold" fill="#007DBA" textAnchor="middle">HP</text>
+  </svg>
+);
+
+const DellLogo = () => (
+  <svg viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="Dell Logo">
+    <text x="50" y="22" fontFamily="Arial, Helvetica, sans-serif" fontSize="24" fontWeight="bold" fill="#007DB8" textAnchor="middle">DELL</text>
+  </svg>
+);
+
+const LenovoLogo = () => (
+  <svg viewBox="0 0 130 30" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="Lenovo Logo">
+    <text x="65" y="22" fontFamily="Arial, Helvetica, sans-serif" fontSize="24" fontWeight="bold" fill="#E2231A" textAnchor="middle">Lenovo</text>
+  </svg>
+);
+
+const AcerLogo = () => (
+  <svg viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="Acer Logo">
+    <text x="50" y="22" fontFamily="Arial, Helvetica, sans-serif" fontSize="24" fontWeight="bold" fill="#87C442" textAnchor="middle">acer</text>
+  </svg>
+);
+
+const EpsonLogo = () => (
+  <svg viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="Epson Logo">
+    <text x="60" y="22" fontFamily="Arial, Helvetica, sans-serif" fontSize="24" fontWeight="bold" fill="#003399" textAnchor="middle">EPSON</text>
+  </svg>
+);
+
+const AsusLogo = () => (
+  <svg viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="ASUS Logo">
+    <text x="50" y="22" fontFamily="Arial, Helvetica, sans-serif" fontSize="24" fontWeight="bold" fill="#0052A0" textAnchor="middle">ASUS</text>
+  </svg>
+);
+
+const CanonLogo = () => (
+  <svg viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="Canon Logo">
+    <text x="60" y="22" fontFamily="Arial, Helvetica, sans-serif" fontSize="24" fontWeight="bold" fill="#DA291C" textAnchor="middle">Canon</text>
+  </svg>
+);
+
+const AppleLogo = () => (
+  <svg viewBox="0 0 20 24" xmlns="http://www.w3.org/2000/svg" className="h-10 w-auto" fill="#A2AAAD" preserveAspectRatio="xMidYMid meet" aria-label="Apple Logo">
+    <path d="M17.482,12.726C17.5,10.629,16.209,8.711,14.287,7.544c-1.663-1.008-3.646-.65-4.947,0.802c-1.286-1.51-3.303-2.003-5.017-1.056C2.236,8.291,1.48,10.489,1.5,12.586c0,0.172,0.011,0.343,0.021,0.511c0.223,3.672,2.537,6.858,4.831,9.019c1.134,1.064,2.334,2.222,3.777,2.222c1.418,0,2.491-1.086,3.606-2.135c2.358-2.203,4.539-5.121,4.803-8.666C18.564,13.347,17.482,12.726,17.482,12.726z M13.085,4.289c1.011-1.209,1.588-2.536,1.351-3.886c-1.477,0.123-2.929,0.978-3.902,2.196c-0.994,1.242-1.764,2.604-1.541,3.947C10.453,6.423,12.094,5.479,13.085,4.289z"/>
+  </svg>
+);
+
+const SamsungLogo = () => (
+  <svg viewBox="0 0 160 30" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="Samsung Logo">
+    <text x="80" y="22" fontFamily="Arial, Helvetica, sans-serif" fontSize="22" fontWeight="bold" fill="#1428A0" textAnchor="middle">SAMSUNG</text>
+  </svg>
+);
+
+const MicrosoftLogo = () => (
+  <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" className="h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="Microsoft Logo">
+    <rect x="1" y="1" width="22" height="22" fill="#F25022" /> {/* Red */}
+    <rect x="27" y="1" width="22" height="22" fill="#7FBA00" /> {/* Green */}
+    <rect x="1" y="27" width="22" height="22" fill="#00A4EF" /> {/* Blue */}
+    <rect x="27" y="27" width="22" height="22" fill="#FFB900" /> {/* Yellow */}
+  </svg>
+);
+
+
 const brands = [
-  { name: 'HP', id: 'hp' },
-  { name: 'Dell', id: 'dell' },
-  { name: 'Lenovo', id: 'lenovo' },
-  { name: 'Acer', id: 'acer' },
-  { name: 'Epson', id: 'epson' },
-  { name: 'ASUS', id: 'asus' },
-  { name: 'Canon', id: 'canon' },
-  { name: 'Apple', id: 'apple' },
-  { name: 'Samsung', id: 'samsung' },
-  { name: 'Microsoft', id: 'microsoft' },
+  { name: 'HP', id: 'hp', LogoComponent: HPLogo },
+  { name: 'Dell', id: 'dell', LogoComponent: DellLogo },
+  { name: 'Lenovo', id: 'lenovo', LogoComponent: LenovoLogo },
+  { name: 'Acer', id: 'acer', LogoComponent: AcerLogo },
+  { name: 'Epson', id: 'epson', LogoComponent: EpsonLogo },
+  { name: 'ASUS', id: 'asus', LogoComponent: AsusLogo },
+  { name: 'Canon', id: 'canon', LogoComponent: CanonLogo },
+  { name: 'Apple', id: 'apple', LogoComponent: AppleLogo },
+  { name: 'Samsung', id: 'samsung', LogoComponent: SamsungLogo },
+  { name: 'Microsoft', id: 'microsoft', LogoComponent: MicrosoftLogo },
 ];
 
 export function BrandPartners() {
@@ -25,12 +89,10 @@ export function BrandPartners() {
           {brands.map((brand) => (
             <div
               key={brand.id}
-              className="group flex justify-center items-center p-4 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 h-20"
+              className="group flex justify-center items-center p-4 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 h-24" // Increased height
               title={brand.name}
             >
-              <span className="text-lg sm:text-xl font-medium text-muted-foreground group-hover:text-foreground transition-colors">
-                {brand.name}
-              </span>
+              <brand.LogoComponent />
             </div>
           ))}
         </div>
