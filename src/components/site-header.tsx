@@ -22,7 +22,7 @@ const NavLinkItem = ({
   isMobile,
   asChild = true, // Default true: Button will use asChild if it's a Link
   disabled = false,
-  className: itemClassName = "" // Renamed from extraClassName for clarity
+  className: itemClassName = ""
 }: {
   href?: string;
   icon: React.ElementType;
@@ -46,9 +46,8 @@ const NavLinkItem = ({
         asChild={asChild} 
         className={`${baseButtonClasses} ${itemClassName}`}
         disabled={disabled}
-        onClick={onClick} // onClick can also be on a Link-Button (though less common for pure nav)
       >
-        <Link href={href} className="flex items-center space-x-2"> {/* Link specific styling */}
+        <Link href={href} className="flex items-center space-x-2" onClick={onClick}> {/* onClick can be useful on Link for pre-navigation actions */}
           <Icon className="h-5 w-5" />
           <span>{label}</span>
         </Link>
@@ -57,7 +56,6 @@ const NavLinkItem = ({
   } else {
     // Case 2: It's an action button (no href, uses onClick).
     // Button's asChild is false because it directly contains the icon and label.
-    // The 'asChild' prop of NavLinkItem is effectively ignored here by making Button's asChild={false}.
     buttonElement = (
       <Button
         variant="ghost"
@@ -89,6 +87,10 @@ export function SiteHeader() {
   };
 
   const handleAdminClick = () => {
+    // No explicit router.push here as NavLinkItem with onClick will directly navigate or ProtectedRoute handles it.
+    // If not authenticated, login page should be the target.
+    // If authenticated, admin page is the target.
+    // This logic is simplified because the link itself changes based on auth state.
     if (!isAdminAuthenticated) {
       router.push('/login');
     } else {
@@ -96,43 +98,30 @@ export function SiteHeader() {
     }
   };
 
-  // This function returns a component rendering function
-  const adminAuthLinks = () => {
-    if (loading) {
-      return (props: { isMobile: boolean }) => (
-        <NavLinkItem
-          isMobile={props.isMobile}
-          icon={ShieldCheck}
-          label="Admin"
-          disabled={true}
-          className="animate-pulse"
-          asChild={false} // Not a link, direct button action
-        />
-      );
-    }
-    if (isAdminAuthenticated) {
-      return (props: { isMobile: boolean }) => (
-        <NavLinkItem
-          isMobile={props.isMobile}
-          icon={LogOut}
-          label="Logout"
-          onClick={handleLogout}
-          asChild={false} // Not a link, direct button action
-        />
-      );
-    }
-    return (props: { isMobile: boolean }) => (
-      <NavLinkItem
-        isMobile={props.isMobile}
-        icon={ShieldCheck}
-        label="Admin"
-        onClick={handleAdminClick}
-        asChild={false} // Not a link, direct button action
-      />
-    );
+  const adminNavPropsBase = {
+    isMobile: false, // This will be overridden for mobile version
+    icon: ShieldCheck,
+    label: "Admin",
+    onClick: handleAdminClick,
+    asChild: false,
   };
 
-  const CurrentAdminAuthNavLink = adminAuthLinks();
+  const logoutNavPropsBase = {
+    isMobile: false, // This will be overridden for mobile version
+    icon: LogOut,
+    label: "Logout",
+    onClick: handleLogout,
+    asChild: false,
+  };
+  
+  const loadingNavPropsBase = {
+    isMobile: false, // This will be overridden for mobile version
+    icon: ShieldCheck,
+    label: "Admin",
+    disabled: true,
+    className: "animate-pulse",
+    asChild: false,
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -146,7 +135,13 @@ export function SiteHeader() {
         <nav className="hidden md:flex items-center space-x-1 sm:space-x-2 md:space-x-4">
           <NavLinkItem href="/" icon={Home} label="Home" isMobile={false} />
           <NavLinkItem href="/dashboard/user" icon={User} label="Dashboard" isMobile={false} />
-          <CurrentAdminAuthNavLink isMobile={false} />
+          {loading ? (
+            <NavLinkItem {...loadingNavPropsBase} isMobile={false} />
+          ) : isAdminAuthenticated ? (
+            <NavLinkItem {...logoutNavPropsBase} isMobile={false} />
+          ) : (
+            <NavLinkItem {...adminNavPropsBase} isMobile={false} />
+          )}
         </nav>
 
         {/* Mobile Navigation Trigger */}
@@ -169,7 +164,13 @@ export function SiteHeader() {
                 <nav className="flex flex-col space-y-3">
                   <NavLinkItem href="/" icon={Home} label="Home" isMobile={true} />
                   <NavLinkItem href="/dashboard/user" icon={User} label="Dashboard" isMobile={true} />
-                  <CurrentAdminAuthNavLink isMobile={true} />
+                  {loading ? (
+                    <NavLinkItem {...loadingNavPropsBase} isMobile={true} />
+                  ) : isAdminAuthenticated ? (
+                    <NavLinkItem {...logoutNavPropsBase} isMobile={true} />
+                  ) : (
+                    <NavLinkItem {...adminNavPropsBase} isMobile={true} onClick={() => router.push('/login')} /> // Explicitly push to login for mobile if not auth
+                  )}
                 </nav>
               </div>
             </SheetContent>
