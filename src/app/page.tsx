@@ -55,9 +55,9 @@ export default function HomePage() {
                   src="https://placehold.co/700x500.png"
                   alt="Modern Tech Illustration"
                   fill
-                  className="object-cover"
+                  objectFit="cover" // Changed from className="object-cover"
                   data-ai-hint="tech illustration"
-                  priority
+                  // priority // Removed priority prop
                 />
               </div>
             </div>
