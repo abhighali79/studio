@@ -7,8 +7,8 @@ export interface Product {
   model?: string;
   price: number;
   description?: string;
-  image: string;
-  image_hint?: string; 
+  images: string[]; // Changed from image: string
+  image_hint?: string; // This hint can refer to the primary image (images[0])
 }
 
 export interface Service {

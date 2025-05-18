@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useToast } from "@/hooks/use-toast";
 import Image from 'next/image';
+import { X } from 'lucide-react';
 
 interface AddProductFormProps {
   onAddProduct: (product: Product) => void;
@@ -21,26 +22,35 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
   const [model, setModel] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setImageFile(file);
-      setImagePreview(URL.createObjectURL(file));
-    } else {
-      setImageFile(null);
-      setImagePreview(null);
+    if (e.target.files) {
+      const filesArray = Array.from(e.target.files);
+      setImageFiles(prevFiles => [...prevFiles, ...filesArray]);
+      
+      const newPreviews = filesArray.map(file => URL.createObjectURL(file));
+      setImagePreviews(prevPreviews => [...prevPreviews, ...newPreviews]);
     }
+  };
+
+  const removeImage = (index: number) => {
+    setImageFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
+    setImagePreviews(prevPreviews => {
+      const newPreviews = prevPreviews.filter((_, i) => i !== index);
+      // Revoke object URL to free memory
+      URL.revokeObjectURL(prevPreviews[index]);
+      return newPreviews;
+    });
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!name || !brand || !price || !imageFile) {
+    if (!name || !brand || !price || imagePreviews.length === 0) {
       toast({
         title: "Error",
-        description: "Please fill in all required fields (Name, Brand, Price, Image).",
+        description: "Please fill in all required fields (Name, Brand, Price) and upload at least one image.",
         variant: "destructive",
       });
       return;
@@ -53,8 +63,8 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
       model,
       price: parseFloat(price),
       description,
-      image: imagePreview || 'https://placehold.co/600x400.png', // Use preview, or fallback. Real app would upload.
-      image_hint: `${name} ${brand}`.toLowerCase().substring(0,20) // Simple hint
+      images: imagePreviews.length > 0 ? imagePreviews : ['https://placehold.co/600x400.png'], // Use previews, or fallback. Real app would upload.
+      image_hint: `${name} ${brand}`.toLowerCase().substring(0,20) // Simple hint for the primary image
     };
 
     onAddProduct(newProduct);
@@ -69,10 +79,10 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
     setModel('');
     setPrice('');
     setDescription('');
-    setImageFile(null);
-    setImagePreview(null);
-    // Reset file input visually if possible (or tell user it's reset)
-    const fileInput = e.currentTarget.elements.namedItem('image') as HTMLInputElement;
+    imagePreviews.forEach(preview => URL.revokeObjectURL(preview)); // Revoke old previews
+    setImageFiles([]);
+    setImagePreviews([]);
+    const fileInput = e.currentTarget.elements.namedItem('images') as HTMLInputElement;
     if(fileInput) fileInput.value = '';
   };
 
@@ -112,11 +122,24 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="image">Product Image *</Label>
-            <Input id="image" type="file" accept="image/*" onChange={handleImageChange} required />
-            {imagePreview && (
-              <div className="mt-2 relative w-full h-48 border rounded-md overflow-hidden">
-                <Image src={imagePreview} alt="Image preview" layout="fill" objectFit="contain" />
+            <Label htmlFor="images">Product Images * (Select one or more)</Label>
+            <Input id="images" type="file" accept="image/*" onChange={handleImageChange} multiple />
+            {imagePreviews.length > 0 && (
+              <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                {imagePreviews.map((preview, index) => (
+                  <div key={index} className="relative group border rounded-md overflow-hidden aspect-square">
+                    <Image src={preview} alt={`Preview ${index + 1}`} layout="fill" objectFit="contain" />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="icon"
+                      className="absolute top-1 right-1 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => removeImage(index)}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
               </div>
             )}
           </div>
