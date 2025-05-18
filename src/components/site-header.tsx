@@ -8,7 +8,7 @@ export function SiteHeader() {
       <div className="container flex h-16 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Package2 className="h-6 w-6 text-primary" />
-          <span className="font-bold text-xl">SaiQuickOrder</span>
+          <span className="font-bold text-xl">Sai Infotech</span>
         </Link>
         <nav className="flex items-center space-x-2 sm:space-x-4">
           <Button variant="ghost" asChild>

@@ -20,7 +20,7 @@ export default function HomePage() {
       <section className="w-full py-16 md:py-24 lg:py-32 text-center bg-gradient-to-br from-primary/10 via-background to-background rounded-xl shadow-md">
         <div className="container px-4 md:px-6">
           <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-primary mb-6">
-            Welcome to SaiQuickOrder
+            Welcome to Sai Infotech
           </h1>
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mb-8">
             Innovative technology solutions by Sai Infotech. Discover our products and services designed to elevate your business.

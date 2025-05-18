@@ -10,7 +10,7 @@ const geistSans = GeistSans;
 const geistMono = GeistMono;
 
 export const metadata: Metadata = {
-  title: 'SaiQuickOrder - Your Tech Solutions Partner',
+  title: 'Sai Infotech - Your Tech Solutions Partner',
   description: 'Sai Infotech: Streamlined product viewing and ordering via WhatsApp.',
 };
 

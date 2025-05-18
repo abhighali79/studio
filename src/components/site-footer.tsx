@@ -9,7 +9,7 @@ export function SiteFooter() {
     <footer className="border-t border-border/40 py-8">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
         <p className="text-sm text-muted-foreground mb-4 md:mb-0">
-          &copy; {new Date().getFullYear()} SaiQuickOrder. All rights reserved.
+          &copy; {new Date().getFullYear()} Sai Infotech. All rights reserved.
         </p>
         <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
           <p className="text-sm text-muted-foreground">Contact us for support:</p>
