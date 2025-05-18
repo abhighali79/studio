@@ -11,6 +11,8 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetHeader,
+  SheetTitle,
 } from "@/components/ui/sheet";
 
 // NavLinkItem Props type definition removed
@@ -133,27 +135,29 @@ export function SiteHeader() {
                 <span className="sr-only">Open navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[280px] sm:w-[320px]">
-              <div className="p-4">
+            <SheetContent side="left" className="w-[280px] sm:w-[320px] p-0">
+              <SheetHeader className="p-4 border-b">
                 <SheetClose asChild>
-                  <Link href="/" className="flex items-center space-x-2 mb-6">
-                    <Package2 className="h-7 w-7 text-primary" />
-                    <span className="font-bold text-2xl">Sai Infotech</span>
+                  <Link href="/" className="flex items-center space-x-2">
+                    <Package2 className="h-6 w-6 text-primary" />
+                    <SheetTitle asChild>
+                       <span className="font-bold text-xl">Sai Infotech</span>
+                    </SheetTitle>
                   </Link>
                 </SheetClose>
-                <nav className="flex flex-col space-y-3">
-                  <NavLinkItem href="/" icon={Home} label="Home" isMobile={true} />
-                  <NavLinkItem href="/dashboard/user" icon={User} label="Dashboard" isMobile={true} />
-                  {loading ? (
-                    <NavLinkItem {...loadingNavPropsBase} isMobile={true} />
-                  ) : isAdminAuthenticated ? (
-                    <NavLinkItem {...logoutNavPropsBase} isMobile={true} />
-                  ) : (
-                     // For mobile when not authenticated, NavLinkItem handles the onClick directly
-                    <NavLinkItem {...adminNavPropsBase} isMobile={true} onClick={() => router.push('/login')} />
-                  )}
-                </nav>
-              </div>
+              </SheetHeader>
+              <nav className="flex flex-col space-y-3 p-4">
+                <NavLinkItem href="/" icon={Home} label="Home" isMobile={true} />
+                <NavLinkItem href="/dashboard/user" icon={User} label="Dashboard" isMobile={true} />
+                {loading ? (
+                  <NavLinkItem {...loadingNavPropsBase} isMobile={true} />
+                ) : isAdminAuthenticated ? (
+                  <NavLinkItem {...logoutNavPropsBase} isMobile={true} />
+                ) : (
+                   // For mobile when not authenticated, NavLinkItem handles the onClick directly
+                  <NavLinkItem {...adminNavPropsBase} isMobile={true} onClick={() => router.push('/login')} />
+                )}
+              </nav>
             </SheetContent>
           </Sheet>
         </div>
