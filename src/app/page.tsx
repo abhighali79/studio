@@ -1,15 +1,12 @@
 
 "use client";
 
-// useState and useEffect removed as products state is no longer needed
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Zap } from 'lucide-react';
-// ProductCard and Skeleton removed as they are no longer used in this file
 
 export default function HomePage() {
-  // products state and useEffect for loading mockProducts removed
 
   return (
     <div className="flex flex-col items-center space-y-16">
@@ -113,6 +110,42 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Our Location Section */}
+      <section className="w-full py-12 md:py-16">
+        <div className="container px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
+              Our Location
+            </h2>
+            <p className="text-muted-foreground md:text-lg">
+              Visit us at our store.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="w-full aspect-video md:aspect-square rounded-xl overflow-hidden shadow-md">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.2846316897912!2d74.947667!3d16.511722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc0cbc33d85e78b%3A0xa06691430d32aaed!2sSAI%20INFOTECH!5e0!3m2!1sen!2sin!4v1747593065066!5m2!1sen!2sin" 
+                width="100%" 
+                height="100%" 
+                style={{ border:0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Sai Infotech Location"
+              ></iframe>
+            </div>
+            <div className="text-center md:text-left">
+              <h3 className="text-2xl font-semibold text-primary mb-4">Shop Address</h3>
+              <p className="text-lg text-muted-foreground">
+                Athani-Gokak Rd, near HVH College, <br />
+                Harugeri, Karnataka 591220
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
+
