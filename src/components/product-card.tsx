@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import type { Product } from '@/types';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -15,7 +16,12 @@ interface ProductCardProps {
 
 export function ProductCard({ product, showAdminActions = false, onDelete }: ProductCardProps) {
   const whatsappNumber = "917411180528";
-  const message = `Hello, I would like to inquire about:\nProduct: ${product.name}\nBrand: ${product.brand}\nModel: ${product.model || 'N/A'}`;
+  const message = `Hello Sai Infotech, I would like to inquire about the following product:
+Product Name: ${product.name}
+Brand: ${product.brand}
+Model: ${product.model || 'N/A'}
+Details: ${product.description || 'Please provide more details.'}
+Reference: You can find this product on your website under the name "${product.name}".`;
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
   const primaryImage = product.images && product.images.length > 0 ? product.images[0] : 'https://placehold.co/600x400.png';
