@@ -85,7 +85,7 @@ export default function LoginPage() {
             </Button>
           </form>
           <p className="mt-4 text-xs text-center text-muted-foreground">
-            (Prototype: Use password "admin123")
+            {/* (Prototype: Use password "admin123") */}
           </p>
         </CardContent>
       </Card>
