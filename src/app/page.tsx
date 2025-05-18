@@ -51,7 +51,7 @@ export default function HomePage() {
             <div className="flex justify-center items-center">
               <div className="relative w-full aspect-[7/5] max-w-md sm:max-w-lg rounded-xl shadow-lg overflow-hidden">
                 <Image
-                  src="https://e7.pngegg.com/pngimages/740/741/png-clipart-appliance-and-device-repair-advertisement-screenshot-laptop-computer-repair-technician-maintenance-service-laptop-computer-network-electronics.png"
+                  src="https://cdni.iconscout.com/illustration/premium/thumb/computer-repair-and-maintenance-illustration-download-in-svg-png-gif-file-formats--settings-installation-computers-functions-pack-science-technology-illustrations-8181570.png"
                   alt="Modern Tech Illustration"
                   fill
                   objectFit="cover"

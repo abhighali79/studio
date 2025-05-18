@@ -34,6 +34,12 @@ const nextConfig: NextConfig = {
         hostname: 'e7.pngegg.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdni.iconscout.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
