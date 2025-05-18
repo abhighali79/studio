@@ -7,46 +7,45 @@ import { ProductCard } from '@/components/product-card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-// Select components removed as price sorting is removed
-// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+// Label import was unused after price filters were removed, so it's removed.
+// import { Label } from '@/components/ui/label'; 
 import { Search, X } from 'lucide-react';
 
-// Mock product data - price removed
-const mockProducts: Product[] = [
-  { id: '1', name: 'Laptop Pro X', brand: 'TechBrand', model: 'TB-LPX-15', description: 'High-performance laptop for professionals with 16GB RAM and 512GB SSD.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop computer' },
-  { id: '2', name: 'Smartphone Ultra', brand: 'ConnectMe', model: 'CM-SU-67', description: 'Feature-rich smartphone with a stunning display and 128GB storage.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'smartphone device' },
-  { id: '3', name: 'Wireless Headset', brand: 'AudioPure', model: 'AP-WH-V2', description: 'Immersive sound quality with noise cancellation.', images: ['https://placehold.co/600x400.png'], image_hint: 'headphones audio' },
-  { id: '4', name: 'Office Printer', brand: 'PrintFast', model: 'PF-M200', description: 'Reliable and efficient multifunction printer.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'printer office' },
-  { id: '5', name: 'Gaming Mouse', brand: 'GameOn', model: 'GO-GM-RGB', description: 'Ergonomic gaming mouse with customizable RGB.', images: ['https://placehold.co/600x400.png'], image_hint: 'gaming mouse' },
-  { id: '6', name: '4K Monitor', brand: 'ViewSharp', model: 'VS-4K-27', description: '27-inch 4K UHD monitor for crisp visuals. Great for editing.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'monitor screen' },
-  { id: '7', name: 'Tablet Lite', brand: 'TechBrand', model: 'TB-TL-10', description: 'Lightweight tablet with 8GB RAM, perfect for media consumption.', images: ['https://placehold.co/600x400.png'], image_hint: 'tablet device' },
-  { id: '8', name: 'Smartwatch Pro', brand: 'ConnectMe', model: 'CM-SWP-01', description: 'Advanced smartwatch with health tracking and NFC.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'smartwatch wearable' },
-];
+// Mock product data removed - products will now be fetched from localStorage (admin-added products)
 
 export default function UserDashboardPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  // Price-related states removed
-  // const [sortOrder, setSortOrder] = useState<'default' | 'price-asc' | 'price-desc'>('default');
-  // const [minPrice, setMinPrice] = useState<string>('');
-  // const [maxPrice, setMaxPrice] = useState<string>('');
 
   useEffect(() => {
+    setLoading(true);
+    // Simulate a short delay for loading, then fetch from localStorage
     const timer = setTimeout(() => {
-      setProducts(mockProducts);
+      const storedAdminProducts = localStorage.getItem('adminProducts');
+      if (storedAdminProducts) {
+        try {
+          const parsedProducts = JSON.parse(storedAdminProducts);
+          // Ensure it's an array before setting
+          if (Array.isArray(parsedProducts)) {
+            setProducts(parsedProducts);
+          } else {
+            setProducts([]); // Set to empty if not an array
+          }
+        } catch (error) {
+          console.error("Failed to parse admin products from localStorage", error);
+          setProducts([]); // Set to empty on parsing error
+        }
+      } else {
+        setProducts([]); // No admin products found in localStorage
+      }
       setLoading(false);
-    }, 1000); 
+    }, 500); // Short delay to show loading state
     return () => clearTimeout(timer);
   }, []);
 
   const clearFilters = () => {
     setSearchTerm('');
-    // Price-related filter resets removed
-    // setSortOrder('default');
-    // setMinPrice('');
-    // setMaxPrice('');
   };
 
   const processedProducts = products.filter(product => {
@@ -57,10 +56,8 @@ export default function UserDashboardPage() {
         return false;
       }
     }
-    // Price range filter removed
     return true;
   });
-  // Price sorting removed
 
   const activeFilterCount = [searchTerm].filter(Boolean).length;
 
@@ -90,22 +87,18 @@ export default function UserDashboardPage() {
         )}
       </div>
       
-      {/* Filters and Sorting section removed */}
-
       <p className="text-center text-muted-foreground">
         Showing {processedProducts.length} of {products.length} products.
       </p>
 
       {loading ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.from({ length: 8 }).map((_, index) => (
+          {Array.from({ length: products.length > 0 ? products.length : 4 }).map((_, index) => ( // Show skeletons based on loaded products or 4 if none
             <div key={index} className="flex flex-col space-y-3 p-4 border rounded-lg shadow-md bg-card">
               <Skeleton className="h-[200px] w-full rounded-xl bg-muted" />
               <div className="space-y-2">
                 <Skeleton className="h-4 w-[200px] bg-muted" />
                 <Skeleton className="h-4 w-[150px] bg-muted" />
-                {/* Skeleton for price removed */}
-                {/* <Skeleton className="h-8 w-[100px] mt-2 bg-muted" /> */}
               </div>
             </div>
           ))}
