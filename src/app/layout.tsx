@@ -6,6 +6,7 @@ import { GeistSans } from 'geist/font/sans';
 import './globals.css';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
+import { BrandPartners } from '@/components/brand-partners'; // Added import
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/contexts/AuthContext';
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           <main className="flex-grow container mx-auto px-4 py-8">
             {children}
           </main>
+          <BrandPartners /> {/* Added BrandPartners component */}
           <SiteFooter />
           <Toaster />
         </AuthProvider>
