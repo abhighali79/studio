@@ -1,6 +1,6 @@
 
 import Image from 'next/image';
-import type { Product } from '@/types';
+// Product type import removed
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from '@/components/ui/dialog';
@@ -8,13 +8,9 @@ import { ShoppingCart, Trash2, GalleryHorizontalEnd, Info } from 'lucide-react';
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 
-interface ProductCardProps {
-  product: Product;
-  showAdminActions?: boolean;
-  onDelete?: (productId: string) => void;
-}
+// ProductCardProps interface removed
 
-export function ProductCard({ product, showAdminActions = false, onDelete }: ProductCardProps) {
+export function ProductCard({ product, showAdminActions = false, onDelete }) {
   const whatsappNumber = "917411180528";
   const message = `Hello Sai Infotech, I would like to inquire about the following product:
 Product Name: ${product.name}
@@ -81,9 +77,7 @@ Reference: You can find this product on your website under the name "${product.n
         )}
       </CardContent>
       <CardFooter className="p-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
-        {/* Price display removed */}
-        {/* <p className="text-2xl font-semibold text-primary">₹{product.price.toLocaleString()}</p> */}
-        <div className="flex-grow"> {/* Added to push buttons to the right if price is removed */}
+        <div className="flex-grow">
           {!showAdminActions && <span className="text-sm text-muted-foreground">Contact for details</span>}
         </div>
         {showAdminActions ? (

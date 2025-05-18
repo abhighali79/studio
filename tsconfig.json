@@ -1,17 +1,18 @@
+
 {
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": true, // Consider setting to false or configuring for a JS project
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "preserve", // Keeps JSX for Babel/Next.js to transform
     "incremental": true,
     "plugins": [
       {
@@ -22,6 +23,11 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts", // Keep .ts for utility files, Genkit, etc.
+    "**/*.jsx", // Add .jsx
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

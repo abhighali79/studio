@@ -4,14 +4,13 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import Image from 'next/image'; // Added Image import
+import Image from 'next/image';
 import { Zap } from 'lucide-react';
-import type { Product } from '@/types';
+// Product type import removed as types are stripped in JSX
 import { ProductCard } from '@/components/product-card';
 import { Skeleton } from '@/components/ui/skeleton';
 
-// Mock product data - price removed
-const mockProducts: Product[] = [
+const mockProducts = [
   { id: 'hp-1', name: 'Laptop Pro X', brand: 'TechBrand', model: 'TB-LPX-15', description: 'High-performance laptop for professionals.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop tech' },
   { id: 'hp-2', name: 'Smartphone Ultra', brand: 'ConnectMe', model: 'CM-SU-67', description: 'Feature-rich smartphone with a stunning display.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'smartphone mobile' },
   { id: 'hp-3', name: 'Wireless Headset', brand: 'AudioPure', model: 'AP-WH-V2', description: 'Immersive sound quality with noise cancellation.', images: ['https://placehold.co/600x400.png'], image_hint: 'headset audio' },
@@ -19,7 +18,7 @@ const mockProducts: Product[] = [
 ];
 
 export default function HomePage() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,9 +54,8 @@ export default function HomePage() {
                   src="https://placehold.co/700x500.png"
                   alt="Modern Tech Illustration"
                   fill
-                  objectFit="cover" // Changed from className="object-cover"
+                  objectFit="cover"
                   data-ai-hint="tech illustration"
-                  // priority // Removed priority prop
                 />
               </div>
             </div>

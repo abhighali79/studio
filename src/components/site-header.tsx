@@ -1,6 +1,6 @@
 
 'use client';
-import React from 'react';
+import React from 'react'; // Ensured React is imported
 import Link from 'next/link';
 import { Package2, Home, User, ShieldCheck, LogOut, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,33 +13,23 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 
-// Helper component for individual navigation links
+// NavLinkItem Props type definition removed
+
 const NavLinkItem = ({
   href,
   icon: Icon,
   label,
   onClick,
   isMobile,
-  asChild = true, // Default true: Button will use asChild if it's a Link
+  asChild = true, 
   disabled = false,
   className: itemClassName = ""
-}: {
-  href?: string;
-  icon: React.ElementType;
-  label: string;
-  onClick?: () => void;
-  isMobile: boolean;
-  asChild?: boolean;
-  disabled?: boolean;
-  className?: string;
 }) => {
   const baseButtonClasses = isMobile ? "w-full justify-start text-base py-3" : "text-sm sm:text-base";
   
   let buttonElement;
 
   if (href) {
-    // Case 1: It's a link. Button typically uses asChild.
-    // The 'asChild' prop of NavLinkItem controls the Button's asChild here.
     buttonElement = (
       <Button
         variant="ghost"
@@ -47,15 +37,13 @@ const NavLinkItem = ({
         className={`${baseButtonClasses} ${itemClassName}`}
         disabled={disabled}
       >
-        <Link href={href} className="flex items-center space-x-2" onClick={onClick}> {/* onClick can be useful on Link for pre-navigation actions */}
+        <Link href={href} className="flex items-center space-x-2" onClick={onClick}>
           <Icon className="h-5 w-5" />
           <span>{label}</span>
         </Link>
       </Button>
     );
   } else {
-    // Case 2: It's an action button (no href, uses onClick).
-    // Button's asChild is false because it directly contains the icon and label.
     buttonElement = (
       <Button
         variant="ghost"
@@ -71,7 +59,6 @@ const NavLinkItem = ({
   }
 
   if (isMobile) {
-    // Only wrap with SheetClose if it's a mobile link/button inside the sheet.
     return <SheetClose asChild>{buttonElement}</SheetClose>;
   }
   return buttonElement;
@@ -87,10 +74,6 @@ export function SiteHeader() {
   };
 
   const handleAdminClick = () => {
-    // No explicit router.push here as NavLinkItem with onClick will directly navigate or ProtectedRoute handles it.
-    // If not authenticated, login page should be the target.
-    // If authenticated, admin page is the target.
-    // This logic is simplified because the link itself changes based on auth state.
     if (!isAdminAuthenticated) {
       router.push('/login');
     } else {
@@ -99,28 +82,25 @@ export function SiteHeader() {
   };
 
   const adminNavPropsBase = {
-    isMobile: false, // This will be overridden for mobile version
     icon: ShieldCheck,
     label: "Admin",
     onClick: handleAdminClick,
-    asChild: false,
+    asChild: false, // Important: asChild is false because Button directly contains icon/label
   };
 
   const logoutNavPropsBase = {
-    isMobile: false, // This will be overridden for mobile version
     icon: LogOut,
     label: "Logout",
     onClick: handleLogout,
-    asChild: false,
+    asChild: false, // Important: asChild is false
   };
   
   const loadingNavPropsBase = {
-    isMobile: false, // This will be overridden for mobile version
     icon: ShieldCheck,
     label: "Admin",
     disabled: true,
     className: "animate-pulse",
-    asChild: false,
+    asChild: false, // Important: asChild is false
   };
 
   return (
@@ -169,7 +149,8 @@ export function SiteHeader() {
                   ) : isAdminAuthenticated ? (
                     <NavLinkItem {...logoutNavPropsBase} isMobile={true} />
                   ) : (
-                    <NavLinkItem {...adminNavPropsBase} isMobile={true} onClick={() => router.push('/login')} /> // Explicitly push to login for mobile if not auth
+                     // For mobile when not authenticated, NavLinkItem handles the onClick directly
+                    <NavLinkItem {...adminNavPropsBase} isMobile={true} onClick={() => router.push('/login')} />
                   )}
                 </nav>
               </div>
