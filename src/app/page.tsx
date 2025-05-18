@@ -49,7 +49,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="flex justify-center items-center">
-              <div className="relative w-full aspect-[7/5] max-w-md sm:max-w-lg rounded-xl shadow-lg overflow-hidden">
+              <div className="relative w-full aspect-[7/5] max-w-md sm:max-w-lg rounded-xl overflow-hidden">
                 <Image
                   src="https://cdni.iconscout.com/illustration/premium/thumb/computer-repair-and-maintenance-illustration-download-in-svg-png-gif-file-formats--settings-installation-computers-functions-pack-science-technology-illustrations-8181570.png"
                   alt="Modern Tech Illustration"
