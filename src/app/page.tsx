@@ -51,7 +51,7 @@ export default function HomePage() {
             <div className="flex justify-center items-center">
               <div className="relative w-full aspect-[7/5] max-w-md sm:max-w-lg rounded-xl shadow-lg overflow-hidden">
                 <Image
-                  src="https://img.freepik.com/free-vector/modern-desktop-computer-concept-illustration_114360-16235.jpg?semt=ais_hybrid&w=740"
+                  src="https://i.pinimg.com/736x/82/e6/08/82e608d571a945e412549444fb25fa04.jpg"
                   alt="Modern Tech Illustration"
                   fill
                   objectFit="cover"
