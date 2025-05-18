@@ -1,8 +1,36 @@
+
+"use client";
+
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Zap } from 'lucide-react';
+import type { Product } from '@/types';
+import { ProductCard } from '@/components/product-card';
+import { Skeleton } from '@/components/ui/skeleton';
+
+// Mock product data - in a real app, this would come from an API
+const mockProducts: Product[] = [
+  { id: 'hp-1', name: 'Laptop Pro X', brand: 'TechBrand', model: 'TB-LPX-15', price: 75000, description: 'High-performance laptop for professionals.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop computer' },
+  { id: 'hp-2', name: 'Smartphone Ultra', brand: 'ConnectMe', model: 'CM-SU-67', price: 45000, description: 'Feature-rich smartphone with a stunning display.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'smartphone device' },
+  { id: 'hp-3', name: 'Wireless Headset', brand: 'AudioPure', model: 'AP-WH-V2', price: 8000, description: 'Immersive sound quality with noise cancellation.', images: ['https://placehold.co/600x400.png'], image_hint: 'headphones audio' },
+  { id: 'hp-4', name: 'Office Printer', brand: 'PrintFast', model: 'PF-M200', price: 12000, description: 'Reliable and efficient multifunction printer.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'printer office' },
+];
 
 export default function HomePage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate API call
+    const timer = setTimeout(() => {
+      // Use a subset of products for the homepage or the same list
+      setProducts(mockProducts); 
+      setLoading(false);
+    }, 1000); // Simulate 1 second loading time
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="flex flex-col items-center space-y-16">
       {/* Hero Section */}
@@ -16,9 +44,46 @@ export default function HomePage() {
           </p>
           <div className="space-x-4">
             <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              <Link href="/dashboard/user">View Products</Link>
+              <Link href="/dashboard/user">View All Products</Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Featured Products Section */}
+      <section className="w-full py-12 md:py-16">
+        <div className="container px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
+              Featured Products
+            </h2>
+            <p className="text-muted-foreground md:text-lg">
+              Check out some of our popular items.
+            </p>
+          </div>
+
+          {loading ? (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <div key={index} className="flex flex-col space-y-3 p-4 border rounded-lg shadow-md">
+                  <Skeleton className="h-[200px] w-full rounded-xl" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-[200px]" />
+                    <Skeleton className="h-4 w-[150px]" />
+                    <Skeleton className="h-8 w-[100px] mt-2" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : products.length > 0 ? (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground">No products available at the moment. Please check back later.</p>
+          )}
         </div>
       </section>
 
@@ -30,13 +95,13 @@ export default function HomePage() {
               Ready to Get Started?
             </h2>
             <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Explore our product catalog or get in touch for a custom solution.
+              Explore our full product catalog or get in touch for a custom solution.
             </p>
           </div>
           <div className="mx-auto w-full max-w-sm space-x-2 flex">
             <Button asChild className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground">
               <Link href="/dashboard/user">
-                <Zap className="mr-2 h-4 w-4" /> Explore Products
+                <Zap className="mr-2 h-4 w-4" /> Explore All Products
               </Link>
             </Button>
              <Button variant="outline" asChild className="flex-1 border-accent text-accent hover:bg-accent/10">
