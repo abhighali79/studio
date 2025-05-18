@@ -8,6 +8,7 @@ import { ProductCard } from '@/components/product-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ListCollapse, LayoutGrid, Search } from 'lucide-react';
+import { ProtectedRoute } from '@/components/auth/protected-route';
 
 // Initial mock products for admin view, can be expanded by the form
 const initialMockProducts: Product[] = [
@@ -50,55 +51,57 @@ export default function AdminDashboardPage() {
   });
 
   return (
-    <div className="space-y-8">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-primary">Admin Dashboard</h1>
-        <p className="text-muted-foreground">Manage your products efficiently.</p>
-      </div>
-      
-      <AddProductForm onAddProduct={handleAddProduct} />
-
-      <div className="mt-12">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-          <h2 className="text-2xl font-semibold text-primary">Current Products ({filteredAdminProducts.length})</h2>
-          <div className="flex w-full sm:w-auto items-center space-x-2">
-            <div className="relative flex-grow sm:flex-grow-0">
-              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 w-full sm:w-64 shadow-sm"
-                aria-label="Search admin products"
-              />
-            </div>
-            <Button variant={viewMode === 'grid' ? 'default' : 'outline'} size="icon" onClick={() => setViewMode('grid')} aria-label="Grid view">
-              <LayoutGrid className="h-5 w-5" />
-            </Button>
-            <Button variant={viewMode === 'list' ? 'default' : 'outline'} size="icon" onClick={() => setViewMode('list')} aria-label="List view">
-              <ListCollapse className="h-5 w-5" />
-            </Button>
-          </div>
+    <ProtectedRoute>
+      <div className="space-y-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-primary">Admin Dashboard</h1>
+          <p className="text-muted-foreground">Manage your products efficiently.</p>
         </div>
         
-        {filteredAdminProducts.length > 0 ? (
-          <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
-            {filteredAdminProducts.map((product) => (
-              <ProductCard 
-                key={product.id} 
-                product={product} 
-                showAdminActions={true}
-                onDelete={handleDeleteProduct}
-              />
-            ))}
+        <AddProductForm onAddProduct={handleAddProduct} />
+
+        <div className="mt-12">
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+            <h2 className="text-2xl font-semibold text-primary">Current Products ({filteredAdminProducts.length})</h2>
+            <div className="flex w-full sm:w-auto items-center space-x-2">
+              <div className="relative flex-grow sm:flex-grow-0">
+                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 w-full sm:w-64 shadow-sm"
+                  aria-label="Search admin products"
+                />
+              </div>
+              <Button variant={viewMode === 'grid' ? 'default' : 'outline'} size="icon" onClick={() => setViewMode('grid')} aria-label="Grid view">
+                <LayoutGrid className="h-5 w-5" />
+              </Button>
+              <Button variant={viewMode === 'list' ? 'default' : 'outline'} size="icon" onClick={() => setViewMode('list')} aria-label="List view">
+                <ListCollapse className="h-5 w-5" />
+              </Button>
+            </div>
           </div>
-        ) : (
-          <p className="text-center text-muted-foreground py-8">
-            {searchTerm ? `No products found matching "${searchTerm}".` : "No products added yet. Use the form above to add new products."}
-          </p>
-        )}
+          
+          {filteredAdminProducts.length > 0 ? (
+            <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+              {filteredAdminProducts.map((product) => (
+                <ProductCard 
+                  key={product.id} 
+                  product={product} 
+                  showAdminActions={true}
+                  onDelete={handleDeleteProduct}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground py-8">
+              {searchTerm ? `No products found matching "${searchTerm}".` : "No products added yet. Use the form above to add new products."}
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 }
