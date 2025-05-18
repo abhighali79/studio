@@ -1,8 +1,7 @@
 
 "use client";
 
-import { useState, type ChangeEvent, type FormEvent } from 'react';
-import type { Product } from '@/types';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,26 +11,22 @@ import { useToast } from "@/hooks/use-toast";
 import Image from 'next/image';
 import { X } from 'lucide-react';
 
-interface AddProductFormProps {
-  onAddProduct: (product: Product) => void;
-}
-
-export function AddProductForm({ onAddProduct }: AddProductFormProps) {
+export function AddProductForm({ onAddProduct }) {
   const { toast } = useToast();
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [description, setDescription] = useState('');
-  const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]); // Will store data URIs
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]); // Will store data URIs
 
-  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
       setImageFiles(prevFiles => [...prevFiles, ...filesArray]);
       
       const newPreviewsPromises = filesArray.map(file => {
-        return new Promise<string>((resolve, reject) => {
+        return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onloadend = () => {
             if (reader.result && typeof reader.result === 'string') {
@@ -59,13 +54,12 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
     }
   };
 
-  const removeImage = (index: number) => {
+  const removeImage = (index) => {
     setImageFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
     setImagePreviews(prevPreviews => prevPreviews.filter((_, i) => i !== index));
-    // No URL.revokeObjectURL needed for data URIs
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !brand || imagePreviews.length === 0) {
       toast({
@@ -78,7 +72,7 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
 
     const nameWords = name.split(' ');
     const brandWords = brand.split(' ');
-    let hintParts: string[] = [];
+    let hintParts = [];
     if (brandWords.length > 0 && brandWords[0]) {
       hintParts.push(brandWords[0].toLowerCase());
     }
@@ -87,8 +81,7 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
     }
     const imageHint = hintParts.slice(0, 2).join(' ').trim() || "product tech";
 
-
-    const newProduct: Product = {
+    const newProduct = {
       id: Date.now().toString(), 
       name,
       brand,
@@ -109,10 +102,9 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
     setBrand('');
     setModel('');
     setDescription('');
-    // imagePreviews are data URIs, no need to revoke
     setImageFiles([]);
     setImagePreviews([]);
-    const fileInput = e.currentTarget.elements.namedItem('images') as HTMLInputElement;
+    const fileInput = e.currentTarget.elements.namedItem('images');
     if(fileInput) fileInput.value = '';
   };
 

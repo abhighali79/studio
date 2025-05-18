@@ -1,12 +1,11 @@
 
 'use client';
-import type { ReactNode } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export function ProtectedRoute({ children }: { children: ReactNode }) {
+export function ProtectedRoute({ children }) {
   const { isAdminAuthenticated, loading } = useAuth();
   const router = useRouter();
 
@@ -31,7 +30,6 @@ export function ProtectedRoute({ children }: { children: ReactNode }) {
   }
 
   if (!isAdminAuthenticated) {
-    // Return null while redirecting. The useEffect handles the redirect.
     return null;
   }
 

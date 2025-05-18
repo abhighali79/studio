@@ -1,8 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from 'react';
-import type { Product } from '@/types';
+import React, { useState, useEffect } from 'react';
 import { AddProductForm } from './add-product-form';
 import { ProductCard } from '@/components/product-card';
 import { Button } from '@/components/ui/button';
@@ -11,14 +10,14 @@ import { ListCollapse, LayoutGrid, Search } from 'lucide-react';
 import { ProtectedRoute } from '@/components/auth/protected-route';
 
 // Initial mock products for admin view, can be expanded by the form
-const initialMockProducts: Product[] = [
+const initialMockProducts = [
   { id: 'admin-1', name: 'Admin Laptop Sample', brand: 'AdminBrand', model: 'AB-LPX-15', description: 'This is a sample product visible on the admin panel, 8GB RAM.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop device' },
   { id: 'admin-2', name: 'Admin Phone Sample', brand: 'AdminConnect', model: 'AC-SU-67', description: 'Another sample product for admin management, 256GB storage.', images: ['https://placehold.co/600x400.png'], image_hint: 'phone mobile' },
 ];
 
 export default function AdminDashboardPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [products, setProducts] = useState([]);
+  const [viewMode, setViewMode] = useState('grid');
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -30,13 +29,13 @@ export default function AdminDashboardPage() {
     }
   }, []);
 
-  const handleAddProduct = (newProduct: Product) => {
+  const handleAddProduct = (newProduct) => {
     const updatedProducts = [newProduct, ...products];
     setProducts(updatedProducts);
     localStorage.setItem('adminProducts', JSON.stringify(updatedProducts));
   };
 
-  const handleDeleteProduct = (productId: string) => {
+  const handleDeleteProduct = (productId) => {
     const updatedProducts = products.filter(p => p.id !== productId);
     setProducts(updatedProducts);
     localStorage.setItem('adminProducts', JSON.stringify(updatedProducts));

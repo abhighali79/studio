@@ -51,13 +51,12 @@ const SamsungLogo = () => (
 
 const MicrosoftLogo = () => (
   <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" className="h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="Microsoft Logo">
-    <rect x="1" y="1" width="22" height="22" fill="#F25022" /> {/* Red */}
-    <rect x="27" y="1" width="22" height="22" fill="#7FBA00" /> {/* Green */}
-    <rect x="1" y="27" width="22" height="22" fill="#00A4EF" /> {/* Blue */}
-    <rect x="27" y="27" width="22" height="22" fill="#FFB900" /> {/* Yellow */}
+    <rect x="1" y="1" width="22" height="22" fill="#F25022" />
+    <rect x="27" y="1" width="22" height="22" fill="#7FBA00" />
+    <rect x="1" y="27" width="22" height="22" fill="#00A4EF" />
+    <rect x="27" y="27" width="22" height="22" fill="#FFB900" />
   </svg>
 );
-
 
 const brands = [
   { name: 'HP', id: 'hp', LogoComponent: HPLogo },
@@ -82,7 +81,7 @@ export function BrandPartners() {
           {brands.map((brand) => (
             <div
               key={brand.id}
-              className="group flex justify-center items-center p-4 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 h-24" // Increased height
+              className="group flex justify-center items-center p-4 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 h-24"
               title={brand.name}
             >
               <brand.LogoComponent />

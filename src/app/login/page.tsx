@@ -1,6 +1,6 @@
 
 'use client';
-import { useState, type FormEvent, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,13 +18,11 @@ export default function LoginPage() {
   const { login, isAdminAuthenticated, loading } = useAuth();
 
   useEffect(() => {
-    // If already authenticated and not loading, redirect to admin dashboard
     if (!loading && isAdminAuthenticated) {
       router.replace('/dashboard/admin');
     }
   }, [isAdminAuthenticated, loading, router]);
 
-  // Prevent rendering the form if already authenticated and redirecting
   if (loading || (!loading && isAdminAuthenticated)) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-200px)]">
@@ -33,7 +31,7 @@ export default function LoginPage() {
     );
   }
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     const success = await login(password);
@@ -42,14 +40,14 @@ export default function LoginPage() {
         title: 'Login Successful',
         description: 'Redirecting to admin dashboard...',
       });
-      router.push('/dashboard/admin'); // Or use router.replace
+      router.push('/dashboard/admin'); 
     } else {
       toast({
         title: 'Login Failed',
         description: 'Invalid password. Please try again.',
         variant: 'destructive',
       });
-      setPassword(''); // Clear password field on failure
+      setPassword(''); 
     }
     setIsSubmitting(false);
   };

@@ -1,46 +1,39 @@
 
 "use client"; 
 
-import { useState, useEffect } from 'react';
-import type { Product } from '@/types';
+import React, { useState, useEffect } from 'react';
 import { ProductCard } from '@/components/product-card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-// Label import was unused after price filters were removed, so it's removed.
-// import { Label } from '@/components/ui/label'; 
 import { Search, X } from 'lucide-react';
 
-// Mock product data removed - products will now be fetched from localStorage (admin-added products)
-
 export default function UserDashboardPage() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     setLoading(true);
-    // Simulate a short delay for loading, then fetch from localStorage
     const timer = setTimeout(() => {
       const storedAdminProducts = localStorage.getItem('adminProducts');
       if (storedAdminProducts) {
         try {
           const parsedProducts = JSON.parse(storedAdminProducts);
-          // Ensure it's an array before setting
           if (Array.isArray(parsedProducts)) {
             setProducts(parsedProducts);
           } else {
-            setProducts([]); // Set to empty if not an array
+            setProducts([]); 
           }
         } catch (error) {
           console.error("Failed to parse admin products from localStorage", error);
-          setProducts([]); // Set to empty on parsing error
+          setProducts([]); 
         }
       } else {
-        setProducts([]); // No admin products found in localStorage
+        setProducts([]); 
       }
       setLoading(false);
-    }, 500); // Short delay to show loading state
+    }, 500); 
     return () => clearTimeout(timer);
   }, []);
 
@@ -93,7 +86,7 @@ export default function UserDashboardPage() {
 
       {loading ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.from({ length: products.length > 0 ? products.length : 4 }).map((_, index) => ( // Show skeletons based on loaded products or 4 if none
+          {Array.from({ length: products.length > 0 ? products.length : 4 }).map((_, index) => ( 
             <div key={index} className="flex flex-col space-y-3 p-4 border rounded-lg shadow-md bg-card">
               <Skeleton className="h-[200px] w-full rounded-xl bg-muted" />
               <div className="space-y-2">
