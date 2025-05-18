@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Image from 'next/image'; // Added Image import
 import { Zap } from 'lucide-react';
 import type { Product } from '@/types';
 import { ProductCard } from '@/components/product-card';
@@ -32,18 +33,33 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center space-y-16">
       {/* Hero Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 text-center bg-gradient-to-br from-primary/10 via-background to-background rounded-xl shadow-md">
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-primary/10 via-background to-background rounded-xl shadow-md">
         <div className="container px-4 md:px-6">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-primary mb-6">
-            Welcome to Sai Infotech
-          </h1>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mb-8">
-            Innovative technology solutions by Sai Infotech. Discover our products and services designed to elevate your business.
-          </p>
-          <div className="space-x-4">
-            <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              <Link href="/dashboard/user">View All Products</Link>
-            </Button>
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="space-y-6 text-center md:text-left">
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-primary mb-6">
+                Welcome to Sai Infotech
+              </h1>
+              <p className="text-muted-foreground md:text-xl lg:text-lg xl:text-xl mb-8 md:mx-0">
+                Innovative technology solutions by Sai Infotech. Discover our products and services designed to elevate your business.
+              </p>
+              <div className="flex justify-center md:justify-start">
+                <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Link href="/dashboard/user">View All Products</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <Image
+                src="https://placehold.co/700x500.png"
+                alt="Modern Tech Illustration"
+                width={700}
+                height={500}
+                className="rounded-xl shadow-lg object-cover"
+                data-ai-hint="tech illustration"
+                priority //  Good for LCP
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -68,8 +84,6 @@ export default function HomePage() {
                   <div className="space-y-2">
                     <Skeleton className="h-4 w-[200px]" />
                     <Skeleton className="h-4 w-[150px]" />
-                    {/* Skeleton for price removed */}
-                    {/* <Skeleton className="h-8 w-[100px] mt-2" /> */}
                   </div>
                 </div>
               ))}
