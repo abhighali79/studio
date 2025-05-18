@@ -50,15 +50,16 @@ export default function HomePage() {
               </div>
             </div>
             <div className="flex justify-center items-center">
-              <Image
-                src="https://placehold.co/700x500.png"
-                alt="Modern Tech Illustration"
-                width={700}
-                height={500}
-                className="rounded-xl shadow-lg object-cover"
-                data-ai-hint="tech illustration"
-                priority //  Good for LCP
-              />
+              <div className="relative w-full aspect-[7/5] max-w-md sm:max-w-lg rounded-xl shadow-lg overflow-hidden">
+                <Image
+                  src="https://placehold.co/700x500.png"
+                  alt="Modern Tech Illustration"
+                  fill
+                  className="object-cover"
+                  data-ai-hint="tech illustration"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </div>
