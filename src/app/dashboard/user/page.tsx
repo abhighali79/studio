@@ -1,3 +1,4 @@
+
 "use client"; // This page will fetch data or use client-side state for products
 
 import { useState, useEffect } from 'react';
@@ -7,12 +8,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 // Mock product data - in a real app, this would come from an API
 const mockProducts: Product[] = [
-  { id: '1', name: 'Laptop Pro X', brand: 'TechBrand', model: 'TB-LPX-15', price: 75000, description: 'High-performance laptop for professionals.', images: ['https://placehold.co/600x400.png?text=Laptop1', 'https://placehold.co/600x400.png?text=Laptop2', 'https://placehold.co/600x400.png?text=Laptop3'], image_hint: 'laptop computer' },
-  { id: '2', name: 'Smartphone Ultra', brand: 'ConnectMe', model: 'CM-SU-67', price: 45000, description: 'Feature-rich smartphone with a stunning display.', images: ['https://placehold.co/600x400.png?text=Phone1', 'https://placehold.co/600x400.png?text=Phone2'], image_hint: 'smartphone device' },
-  { id: '3', name: 'Wireless Headset', brand: 'AudioPure', model: 'AP-WH-V2', price: 8000, description: 'Immersive sound quality with noise cancellation.', images: ['https://placehold.co/600x400.png?text=Headset1'], image_hint: 'headphones audio' },
-  { id: '4', name: 'Office Printer', brand: 'PrintFast', model: 'PF-M200', price: 12000, description: 'Reliable and efficient multifunction printer.', images: ['https://placehold.co/600x400.png?text=Printer1', 'https://placehold.co/600x400.png?text=Printer2'], image_hint: 'printer office' },
-  { id: '5', name: 'Gaming Mouse', brand: 'GameOn', model: 'GO-GM-RGB', price: 3500, description: 'Ergonomic gaming mouse with customizable RGB.', images: ['https://placehold.co/600x400.png?text=Mouse1'], image_hint: 'gaming mouse' },
-  { id: '6', name: '4K Monitor', brand: 'ViewSharp', model: 'VS-4K-27', price: 28000, description: '27-inch 4K UHD monitor for crisp visuals.', images: ['https://placehold.co/600x400.png?text=Monitor1', 'https://placehold.co/600x400.png?text=Monitor2'], image_hint: 'monitor screen' },
+  { id: '1', name: 'Laptop Pro X', brand: 'TechBrand', model: 'TB-LPX-15', price: 75000, description: 'High-performance laptop for professionals.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop computer' },
+  { id: '2', name: 'Smartphone Ultra', brand: 'ConnectMe', model: 'CM-SU-67', price: 45000, description: 'Feature-rich smartphone with a stunning display.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'smartphone device' },
+  { id: '3', name: 'Wireless Headset', brand: 'AudioPure', model: 'AP-WH-V2', price: 8000, description: 'Immersive sound quality with noise cancellation.', images: ['https://placehold.co/600x400.png'], image_hint: 'headphones audio' },
+  { id: '4', name: 'Office Printer', brand: 'PrintFast', model: 'PF-M200', price: 12000, description: 'Reliable and efficient multifunction printer.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'printer office' },
+  { id: '5', name: 'Gaming Mouse', brand: 'GameOn', model: 'GO-GM-RGB', price: 3500, description: 'Ergonomic gaming mouse with customizable RGB.', images: ['https://placehold.co/600x400.png'], image_hint: 'gaming mouse' },
+  { id: '6', name: '4K Monitor', brand: 'ViewSharp', model: 'VS-4K-27', price: 28000, description: '27-inch 4K UHD monitor for crisp visuals.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'monitor screen' },
 ];
 
 export default function UserDashboardPage() {

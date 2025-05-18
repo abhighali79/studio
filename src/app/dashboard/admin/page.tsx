@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -9,8 +10,8 @@ import { ListCollapse, LayoutGrid } from 'lucide-react';
 
 // Initial mock products for admin view, can be expanded by the form
 const initialMockProducts: Product[] = [
-  { id: 'admin-1', name: 'Admin Laptop Sample', brand: 'AdminBrand', model: 'AB-LPX-15', price: 85000, description: 'This is a sample product visible on the admin panel.', images: ['https://placehold.co/600x400.png?text=AdminLaptop1', 'https://placehold.co/600x400.png?text=AdminLaptop2'], image_hint: 'laptop device' },
-  { id: 'admin-2', name: 'Admin Phone Sample', brand: 'AdminConnect', model: 'AC-SU-67', price: 55000, description: 'Another sample product for admin management.', images: ['https://placehold.co/600x400.png?text=AdminPhone1'], image_hint: 'phone mobile' },
+  { id: 'admin-1', name: 'Admin Laptop Sample', brand: 'AdminBrand', model: 'AB-LPX-15', price: 85000, description: 'This is a sample product visible on the admin panel.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop device' },
+  { id: 'admin-2', name: 'Admin Phone Sample', brand: 'AdminConnect', model: 'AC-SU-67', price: 55000, description: 'Another sample product for admin management.', images: ['https://placehold.co/600x400.png'], image_hint: 'phone mobile' },
 ];
 
 export default function AdminDashboardPage() {

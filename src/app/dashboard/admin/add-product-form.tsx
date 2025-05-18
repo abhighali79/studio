@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, type ChangeEvent, type FormEvent } from 'react';
@@ -56,6 +57,18 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
       return;
     }
 
+    const nameWords = name.split(' ');
+    const brandWords = brand.split(' ');
+    let hintParts: string[] = [];
+    if (brandWords.length > 0 && brandWords[0]) {
+      hintParts.push(brandWords[0].toLowerCase());
+    }
+    if (nameWords.length > 0 && nameWords[0]) {
+      hintParts.push(nameWords[0].toLowerCase());
+    }
+    const imageHint = hintParts.slice(0, 2).join(' ').trim() || "product tech";
+
+
     const newProduct: Product = {
       id: Date.now().toString(), // Simple ID generation
       name,
@@ -63,8 +76,8 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
       model,
       price: parseFloat(price),
       description,
-      images: imagePreviews.length > 0 ? imagePreviews : ['https://placehold.co/600x400.png'], // Use previews, or fallback. Real app would upload.
-      image_hint: `${name} ${brand}`.toLowerCase().substring(0,20) // Simple hint for the primary image
+      images: imagePreviews.length > 0 ? imagePreviews : ['https://placehold.co/600x400.png'], 
+      image_hint: imageHint
     };
 
     onAddProduct(newProduct);
