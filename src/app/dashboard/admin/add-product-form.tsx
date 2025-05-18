@@ -21,7 +21,7 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
-  const [price, setPrice] = useState('');
+  // const [price, setPrice] = useState(''); // Price state removed
   const [description, setDescription] = useState('');
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -40,7 +40,6 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
     setImageFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
     setImagePreviews(prevPreviews => {
       const newPreviews = prevPreviews.filter((_, i) => i !== index);
-      // Revoke object URL to free memory
       URL.revokeObjectURL(prevPreviews[index]);
       return newPreviews;
     });
@@ -48,10 +47,10 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!name || !brand || !price || imagePreviews.length === 0) {
+    if (!name || !brand || imagePreviews.length === 0) { // Price removed from validation
       toast({
         title: "Error",
-        description: "Please fill in all required fields (Name, Brand, Price) and upload at least one image.",
+        description: "Please fill in all required fields (Name, Brand) and upload at least one image.",
         variant: "destructive",
       });
       return;
@@ -70,11 +69,11 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
 
 
     const newProduct: Product = {
-      id: Date.now().toString(), // Simple ID generation
+      id: Date.now().toString(), 
       name,
       brand,
       model,
-      price: parseFloat(price),
+      // price: parseFloat(price), // Price removed
       description,
       images: imagePreviews.length > 0 ? imagePreviews : ['https://placehold.co/600x400.png'], 
       image_hint: imageHint
@@ -90,9 +89,9 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
     setName('');
     setBrand('');
     setModel('');
-    setPrice('');
+    // setPrice(''); // Price reset removed
     setDescription('');
-    imagePreviews.forEach(preview => URL.revokeObjectURL(preview)); // Revoke old previews
+    imagePreviews.forEach(preview => URL.revokeObjectURL(preview));
     setImageFiles([]);
     setImagePreviews([]);
     const fileInput = e.currentTarget.elements.namedItem('images') as HTMLInputElement;
@@ -123,10 +122,11 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
               <Label htmlFor="model">Model</Label>
               <Input id="model" value={model} onChange={(e) => setModel(e.target.value)} placeholder="e.g., TB-LPX-15" />
             </div>
-            <div className="space-y-2">
+            {/* Price input field removed */}
+            {/* <div className="space-y-2">
               <Label htmlFor="price">Price (₹) *</Label>
               <Input id="price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="e.g., 75000" required min="0" step="0.01" />
-            </div>
+            </div> */}
           </div>
           
           <div className="space-y-2">

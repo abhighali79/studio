@@ -9,12 +9,12 @@ import type { Product } from '@/types';
 import { ProductCard } from '@/components/product-card';
 import { Skeleton } from '@/components/ui/skeleton';
 
-// Mock product data - in a real app, this would come from an API
+// Mock product data - price removed
 const mockProducts: Product[] = [
-  { id: 'hp-1', name: 'Laptop Pro X', brand: 'TechBrand', model: 'TB-LPX-15', price: 75000, description: 'High-performance laptop for professionals.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop tech' },
-  { id: 'hp-2', name: 'Smartphone Ultra', brand: 'ConnectMe', model: 'CM-SU-67', price: 45000, description: 'Feature-rich smartphone with a stunning display.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'smartphone mobile' },
-  { id: 'hp-3', name: 'Wireless Headset', brand: 'AudioPure', model: 'AP-WH-V2', price: 8000, description: 'Immersive sound quality with noise cancellation.', images: ['https://placehold.co/600x400.png'], image_hint: 'headset audio' },
-  { id: 'hp-4', name: 'Office Printer', brand: 'PrintFast', model: 'PF-M200', price: 12000, description: 'Reliable and efficient multifunction printer.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'printer office' },
+  { id: 'hp-1', name: 'Laptop Pro X', brand: 'TechBrand', model: 'TB-LPX-15', description: 'High-performance laptop for professionals.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop tech' },
+  { id: 'hp-2', name: 'Smartphone Ultra', brand: 'ConnectMe', model: 'CM-SU-67', description: 'Feature-rich smartphone with a stunning display.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'smartphone mobile' },
+  { id: 'hp-3', name: 'Wireless Headset', brand: 'AudioPure', model: 'AP-WH-V2', description: 'Immersive sound quality with noise cancellation.', images: ['https://placehold.co/600x400.png'], image_hint: 'headset audio' },
+  { id: 'hp-4', name: 'Office Printer', brand: 'PrintFast', model: 'PF-M200', description: 'Reliable and efficient multifunction printer.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'printer office' },
 ];
 
 export default function HomePage() {
@@ -22,12 +22,10 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate API call
     const timer = setTimeout(() => {
-      // Use a subset of products for the homepage or the same list
       setProducts(mockProducts); 
       setLoading(false);
-    }, 1000); // Simulate 1 second loading time
+    }, 1000); 
     return () => clearTimeout(timer);
   }, []);
 
@@ -70,7 +68,8 @@ export default function HomePage() {
                   <div className="space-y-2">
                     <Skeleton className="h-4 w-[200px]" />
                     <Skeleton className="h-4 w-[150px]" />
-                    <Skeleton className="h-8 w-[100px] mt-2" />
+                    {/* Skeleton for price removed */}
+                    {/* <Skeleton className="h-8 w-[100px] mt-2" /> */}
                   </div>
                 </div>
               ))}

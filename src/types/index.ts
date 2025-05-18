@@ -4,8 +4,8 @@ export interface Product {
   name: string;
   brand: string;
   model?: string;
-  price: number;
+  // price: number; // Price removed
   description?: string;
-  images: string[]; // Changed from image: string
-  image_hint?: string; // This hint can refer to the primary image (images[0])
+  images: string[];
+  image_hint?: string;
 }

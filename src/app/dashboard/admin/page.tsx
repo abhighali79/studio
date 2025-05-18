@@ -12,8 +12,8 @@ import { ProtectedRoute } from '@/components/auth/protected-route';
 
 // Initial mock products for admin view, can be expanded by the form
 const initialMockProducts: Product[] = [
-  { id: 'admin-1', name: 'Admin Laptop Sample', brand: 'AdminBrand', model: 'AB-LPX-15', price: 85000, description: 'This is a sample product visible on the admin panel, 8GB RAM.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop device' },
-  { id: 'admin-2', name: 'Admin Phone Sample', brand: 'AdminConnect', model: 'AC-SU-67', price: 55000, description: 'Another sample product for admin management, 256GB storage.', images: ['https://placehold.co/600x400.png'], image_hint: 'phone mobile' },
+  { id: 'admin-1', name: 'Admin Laptop Sample', brand: 'AdminBrand', model: 'AB-LPX-15', description: 'This is a sample product visible on the admin panel, 8GB RAM.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop device' },
+  { id: 'admin-2', name: 'Admin Phone Sample', brand: 'AdminConnect', model: 'AC-SU-67', description: 'Another sample product for admin management, 256GB storage.', images: ['https://placehold.co/600x400.png'], image_hint: 'phone mobile' },
 ];
 
 export default function AdminDashboardPage() {
@@ -22,7 +22,6 @@ export default function AdminDashboardPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Load products from local storage or use initial mocks
     const storedProducts = localStorage.getItem('adminProducts');
     if (storedProducts) {
       setProducts(JSON.parse(storedProducts));

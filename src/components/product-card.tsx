@@ -15,7 +15,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product, showAdminActions = false, onDelete }: ProductCardProps) {
   const whatsappNumber = "917411180528";
-  const message = `Hello, I would like to order:\nProduct: ${product.name}\nBrand: ${product.brand}\nModel: ${product.model || 'N/A'}\nPrice: ₹${product.price}`;
+  const message = `Hello, I would like to inquire about:\nProduct: ${product.name}\nBrand: ${product.brand}\nModel: ${product.model || 'N/A'}`;
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
   const primaryImage = product.images && product.images.length > 0 ? product.images[0] : 'https://placehold.co/600x400.png';
@@ -75,7 +75,11 @@ export function ProductCard({ product, showAdminActions = false, onDelete }: Pro
         )}
       </CardContent>
       <CardFooter className="p-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
-        <p className="text-2xl font-semibold text-primary">₹{product.price.toLocaleString()}</p>
+        {/* Price display removed */}
+        {/* <p className="text-2xl font-semibold text-primary">₹{product.price.toLocaleString()}</p> */}
+        <div className="flex-grow"> {/* Added to push buttons to the right if price is removed */}
+          {!showAdminActions && <span className="text-sm text-muted-foreground">Contact for details</span>}
+        </div>
         {showAdminActions ? (
           <div className="flex items-center space-x-2">
             <Dialog>
@@ -110,7 +114,7 @@ export function ProductCard({ product, showAdminActions = false, onDelete }: Pro
         ) : (
           <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-              <ShoppingCart className="mr-2 h-4 w-4" /> Order on WhatsApp
+              <ShoppingCart className="mr-2 h-4 w-4" /> Inquire on WhatsApp
             </a>
           </Button>
         )}
