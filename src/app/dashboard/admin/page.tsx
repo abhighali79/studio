@@ -6,17 +6,19 @@ import type { Product } from '@/types';
 import { AddProductForm } from './add-product-form';
 import { ProductCard } from '@/components/product-card';
 import { Button } from '@/components/ui/button';
-import { ListCollapse, LayoutGrid } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { ListCollapse, LayoutGrid, Search } from 'lucide-react';
 
 // Initial mock products for admin view, can be expanded by the form
 const initialMockProducts: Product[] = [
-  { id: 'admin-1', name: 'Admin Laptop Sample', brand: 'AdminBrand', model: 'AB-LPX-15', price: 85000, description: 'This is a sample product visible on the admin panel.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop device' },
-  { id: 'admin-2', name: 'Admin Phone Sample', brand: 'AdminConnect', model: 'AC-SU-67', price: 55000, description: 'Another sample product for admin management.', images: ['https://placehold.co/600x400.png'], image_hint: 'phone mobile' },
+  { id: 'admin-1', name: 'Admin Laptop Sample', brand: 'AdminBrand', model: 'AB-LPX-15', price: 85000, description: 'This is a sample product visible on the admin panel, 8GB RAM.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop device' },
+  { id: 'admin-2', name: 'Admin Phone Sample', brand: 'AdminConnect', model: 'AC-SU-67', price: 55000, description: 'Another sample product for admin management, 256GB storage.', images: ['https://placehold.co/600x400.png'], image_hint: 'phone mobile' },
 ];
 
 export default function AdminDashboardPage() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid'); // Default to grid
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     // Load products from local storage or use initial mocks
@@ -40,6 +42,13 @@ export default function AdminDashboardPage() {
     localStorage.setItem('adminProducts', JSON.stringify(updatedProducts));
   };
 
+  const filteredAdminProducts = products.filter(product => {
+    if (!searchTerm) return true;
+    const searchTermLower = searchTerm.toLowerCase();
+    const productText = `${product.name} ${product.model || ''} ${product.description || ''}`.toLowerCase();
+    return searchTermLower.split(' ').filter(word => word.length > 0).every(word => productText.includes(word));
+  });
+
   return (
     <div className="space-y-8">
       <div className="text-center mb-8">
@@ -50,9 +59,20 @@ export default function AdminDashboardPage() {
       <AddProductForm onAddProduct={handleAddProduct} />
 
       <div className="mt-12">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold text-primary">Current Products ({products.length})</h2>
-          <div className="flex space-x-2">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+          <h2 className="text-2xl font-semibold text-primary">Current Products ({filteredAdminProducts.length})</h2>
+          <div className="flex w-full sm:w-auto items-center space-x-2">
+            <div className="relative flex-grow sm:flex-grow-0">
+              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Search products..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 w-full sm:w-64 shadow-sm"
+                aria-label="Search admin products"
+              />
+            </div>
             <Button variant={viewMode === 'grid' ? 'default' : 'outline'} size="icon" onClick={() => setViewMode('grid')} aria-label="Grid view">
               <LayoutGrid className="h-5 w-5" />
             </Button>
@@ -62,9 +82,9 @@ export default function AdminDashboardPage() {
           </div>
         </div>
         
-        {products.length > 0 ? (
+        {filteredAdminProducts.length > 0 ? (
           <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
-            {products.map((product) => (
+            {filteredAdminProducts.map((product) => (
               <ProductCard 
                 key={product.id} 
                 product={product} 
@@ -74,7 +94,9 @@ export default function AdminDashboardPage() {
             ))}
           </div>
         ) : (
-          <p className="text-center text-muted-foreground py-8">No products added yet. Use the form above to add new products.</p>
+          <p className="text-center text-muted-foreground py-8">
+            {searchTerm ? `No products found matching "${searchTerm}".` : "No products added yet. Use the form above to add new products."}
+          </p>
         )}
       </div>
     </div>
