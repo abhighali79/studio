@@ -21,33 +21,53 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
-  // const [price, setPrice] = useState(''); // Price state removed
   const [description, setDescription] = useState('');
   const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]); // Will store data URIs
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
       setImageFiles(prevFiles => [...prevFiles, ...filesArray]);
       
-      const newPreviews = filesArray.map(file => URL.createObjectURL(file));
-      setImagePreviews(prevPreviews => [...prevPreviews, ...newPreviews]);
+      const newPreviewsPromises = filesArray.map(file => {
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            if (reader.result && typeof reader.result === 'string') {
+              resolve(reader.result);
+            } else {
+              reject(new Error('Failed to read file as data URI.'));
+            }
+          };
+          reader.onerror = (error) => reject(error);
+          reader.readAsDataURL(file);
+        });
+      });
+
+      try {
+        const resolvedPreviews = await Promise.all(newPreviewsPromises);
+        setImagePreviews(prevPreviews => [...prevPreviews, ...resolvedPreviews]);
+      } catch (error) {
+        console.error("Error converting files to data URIs:", error);
+        toast({
+          title: "Image Upload Error",
+          description: "Could not process one or more images. Please try again.",
+          variant: "destructive",
+        });
+      }
     }
   };
 
   const removeImage = (index: number) => {
     setImageFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
-    setImagePreviews(prevPreviews => {
-      const newPreviews = prevPreviews.filter((_, i) => i !== index);
-      URL.revokeObjectURL(prevPreviews[index]);
-      return newPreviews;
-    });
+    setImagePreviews(prevPreviews => prevPreviews.filter((_, i) => i !== index));
+    // No URL.revokeObjectURL needed for data URIs
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!name || !brand || imagePreviews.length === 0) { // Price removed from validation
+    if (!name || !brand || imagePreviews.length === 0) {
       toast({
         title: "Error",
         description: "Please fill in all required fields (Name, Brand) and upload at least one image.",
@@ -73,7 +93,6 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
       name,
       brand,
       model,
-      // price: parseFloat(price), // Price removed
       description,
       images: imagePreviews.length > 0 ? imagePreviews : ['https://placehold.co/600x400.png'], 
       image_hint: imageHint
@@ -89,9 +108,8 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
     setName('');
     setBrand('');
     setModel('');
-    // setPrice(''); // Price reset removed
     setDescription('');
-    imagePreviews.forEach(preview => URL.revokeObjectURL(preview));
+    // imagePreviews are data URIs, no need to revoke
     setImageFiles([]);
     setImagePreviews([]);
     const fileInput = e.currentTarget.elements.namedItem('images') as HTMLInputElement;
@@ -122,11 +140,6 @@ export function AddProductForm({ onAddProduct }: AddProductFormProps) {
               <Label htmlFor="model">Model</Label>
               <Input id="model" value={model} onChange={(e) => setModel(e.target.value)} placeholder="e.g., TB-LPX-15" />
             </div>
-            {/* Price input field removed */}
-            {/* <div className="space-y-2">
-              <Label htmlFor="price">Price (₹) *</Label>
-              <Input id="price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="e.g., 75000" required min="0" step="0.01" />
-            </div> */}
           </div>
           
           <div className="space-y-2">
