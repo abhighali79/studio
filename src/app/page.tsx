@@ -1,33 +1,15 @@
 
 "use client";
 
-import { useState, useEffect } from 'react';
+// useState and useEffect removed as products state is no longer needed
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Zap } from 'lucide-react';
-// Product type import removed as types are stripped in JSX
-import { ProductCard } from '@/components/product-card';
-import { Skeleton } from '@/components/ui/skeleton';
-
-const mockProducts = [
-  { id: 'hp-1', name: 'Laptop Pro X', brand: 'TechBrand', model: 'TB-LPX-15', description: 'High-performance laptop for professionals.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'laptop tech' },
-  { id: 'hp-2', name: 'Smartphone Ultra', brand: 'ConnectMe', model: 'CM-SU-67', description: 'Feature-rich smartphone with a stunning display.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'smartphone mobile' },
-  { id: 'hp-3', name: 'Wireless Headset', brand: 'AudioPure', model: 'AP-WH-V2', description: 'Immersive sound quality with noise cancellation.', images: ['https://placehold.co/600x400.png'], image_hint: 'headset audio' },
-  { id: 'hp-4', name: 'Office Printer', brand: 'PrintFast', model: 'PF-M200', description: 'Reliable and efficient multifunction printer.', images: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], image_hint: 'printer office' },
-];
+// ProductCard and Skeleton removed as they are no longer used in this file
 
 export default function HomePage() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setProducts(mockProducts); 
-      setLoading(false);
-    }, 1000); 
-    return () => clearTimeout(timer);
-  }, []);
+  // products state and useEffect for loading mockProducts removed
 
   return (
     <div className="flex flex-col items-center space-y-16">
@@ -63,39 +45,46 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products Section */}
+      {/* Computer Repairs Section */}
       <section className="w-full py-12 md:py-16">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
-              Featured Products
+              Expert Computer Repairs
             </h2>
             <p className="text-muted-foreground md:text-lg">
-              Check out some of our popular items.
+              We offer a wide range of computer repair services.
             </p>
           </div>
-
-          {loading ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {Array.from({ length: 4 }).map((_, index) => (
-                <div key={index} className="flex flex-col space-y-3 p-4 border rounded-lg shadow-md">
-                  <Skeleton className="h-[200px] w-full rounded-xl" />
-                  <div className="space-y-2">
-                    <Skeleton className="h-4 w-[200px]" />
-                    <Skeleton className="h-4 w-[150px]" />
-                  </div>
-                </div>
-              ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="relative aspect-video w-full rounded-xl overflow-hidden shadow-md">
+              <Image
+                src="https://placehold.co/600x400.png"
+                alt="Computer repair service"
+                fill
+                objectFit="cover"
+                data-ai-hint="computer repair"
+              />
             </div>
-          ) : products.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+            <div className="relative aspect-video w-full rounded-xl overflow-hidden shadow-md">
+              <Image
+                src="https://placehold.co/600x400.png"
+                alt="Laptop maintenance"
+                fill
+                objectFit="cover"
+                data-ai-hint="laptop maintenance"
+              />
             </div>
-          ) : (
-            <p className="text-center text-muted-foreground">No products available at the moment. Please check back later.</p>
-          )}
+            <div className="relative aspect-video w-full rounded-xl overflow-hidden shadow-md">
+              <Image
+                src="https://placehold.co/600x400.png"
+                alt="Hardware troubleshooting"
+                fill
+                objectFit="cover"
+                data-ai-hint="hardware troubleshooting"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
