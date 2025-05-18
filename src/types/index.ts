@@ -1,4 +1,3 @@
-import type { LucideIcon } from 'lucide-react';
 
 export interface Product {
   id: string;
@@ -9,11 +8,4 @@ export interface Product {
   description?: string;
   images: string[]; // Changed from image: string
   image_hint?: string; // This hint can refer to the primary image (images[0])
-}
-
-export interface Service {
-  id: string;
-  title: string;
-  description: string;
-  icon: LucideIcon;
 }

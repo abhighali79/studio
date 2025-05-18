@@ -1,25 +1,5 @@
-import type { Service } from '@/types';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+// This file is no longer used and can be deleted.
+// If you have a file system integration, you can remove this file.
+// For now, I will empty its content as I cannot delete files directly.
 
-interface ServiceItemProps {
-  service: Service;
-}
-
-export function ServiceItem({ service }: ServiceItemProps) {
-  const IconComponent = service.icon;
-  return (
-    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-      <CardHeader className="items-center text-center">
-        <div className="p-3 bg-accent/20 rounded-full mb-3">
-          <IconComponent className="h-8 w-8 text-accent" />
-        </div>
-        <CardTitle className="text-xl">{service.title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <CardDescription className="text-center text-base">
-          {service.description}
-        </CardDescription>
-      </CardContent>
-    </Card>
-  );
-}
+export {};
