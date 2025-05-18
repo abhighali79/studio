@@ -43,12 +43,6 @@ const CanonLogo = () => (
   </svg>
 );
 
-const AppleLogo = () => (
-  <svg viewBox="0 0 20 24" xmlns="http://www.w3.org/2000/svg" className="h-10 w-auto" fill="#A2AAAD" preserveAspectRatio="xMidYMid meet" aria-label="Apple Logo">
-    <path d="M17.482,12.726C17.5,10.629,16.209,8.711,14.287,7.544c-1.663-1.008-3.646-.65-4.947,0.802c-1.286-1.51-3.303-2.003-5.017-1.056C2.236,8.291,1.48,10.489,1.5,12.586c0,0.172,0.011,0.343,0.021,0.511c0.223,3.672,2.537,6.858,4.831,9.019c1.134,1.064,2.334,2.222,3.777,2.222c1.418,0,2.491-1.086,3.606-2.135c2.358-2.203,4.539-5.121,4.803-8.666C18.564,13.347,17.482,12.726,17.482,12.726z M13.085,4.289c1.011-1.209,1.588-2.536,1.351-3.886c-1.477,0.123-2.929,0.978-3.902,2.196c-0.994,1.242-1.764,2.604-1.541,3.947C10.453,6.423,12.094,5.479,13.085,4.289z"/>
-  </svg>
-);
-
 const SamsungLogo = () => (
   <svg viewBox="0 0 160 30" xmlns="http://www.w3.org/2000/svg" className="h-8 sm:h-10 w-auto" preserveAspectRatio="xMidYMid meet" aria-label="Samsung Logo">
     <text x="80" y="22" fontFamily="Arial, Helvetica, sans-serif" fontSize="22" fontWeight="bold" fill="#1428A0" textAnchor="middle">SAMSUNG</text>
@@ -73,7 +67,6 @@ const brands = [
   { name: 'Epson', id: 'epson', LogoComponent: EpsonLogo },
   { name: 'ASUS', id: 'asus', LogoComponent: AsusLogo },
   { name: 'Canon', id: 'canon', LogoComponent: CanonLogo },
-  { name: 'Apple', id: 'apple', LogoComponent: AppleLogo },
   { name: 'Samsung', id: 'samsung', LogoComponent: SamsungLogo },
   { name: 'Microsoft', id: 'microsoft', LogoComponent: MicrosoftLogo },
 ];
