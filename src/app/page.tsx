@@ -56,29 +56,26 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="relative aspect-video w-full rounded-xl overflow-hidden shadow-md">
               <Image
-                src="https://placehold.co/600x400.png"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4jKTO9koXKSD8mlq2zYelymzNHtYAMaJBUg&s"
                 alt="Computer repair service"
                 fill
                 objectFit="cover"
-                data-ai-hint="computer repair"
               />
             </div>
             <div className="relative aspect-video w-full rounded-xl overflow-hidden shadow-md">
               <Image
-                src="https://placehold.co/600x400.png"
+                src="https://5.imimg.com/data5/SELLER/Default/2022/3/QV/LY/RL/4697972/computer-repairing-service.jpg"
                 alt="Laptop maintenance"
                 fill
                 objectFit="cover"
-                data-ai-hint="laptop maintenance"
               />
             </div>
             <div className="relative aspect-video w-full rounded-xl overflow-hidden shadow-md">
               <Image
-                src="https://placehold.co/600x400.png"
+                src="https://content.jdmagicbox.com/v2/comp/bangalore/t5/080pxx80.xx80.190221182740.p6t5/catalogue/a-s-computer-service-bangalore-0ijh6drbjo.jpg"
                 alt="Hardware troubleshooting"
                 fill
                 objectFit="cover"
-                data-ai-hint="hardware troubleshooting"
               />
             </div>
           </div>
@@ -124,13 +121,13 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="w-full aspect-video md:aspect-square rounded-xl overflow-hidden shadow-md">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.2846316897912!2d74.947667!3d16.511722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc0cbc33d85e78b%3A0xa06691430d32aaed!2sSAI%20INFOTECH!5e0!3m2!1sen!2sin!4v1747593065066!5m2!1sen!2sin" 
-                width="100%" 
-                height="100%" 
-                style={{ border:0 }} 
-                allowFullScreen={true} 
-                loading="lazy" 
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.2846316897912!2d74.947667!3d16.511722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc0cbc33d85e78b%3A0xa06691430d32aaed!2sSAI%20INFOTECH!5e0!3m2!1sen!2sin!4v1747593065066!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border:0 }}
+                allowFullScreen={true}
+                loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Sai Infotech Location"
               ></iframe>
@@ -148,4 +145,3 @@ export default function HomePage() {
     </div>
   );
 }
-

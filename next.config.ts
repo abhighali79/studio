@@ -40,6 +40,24 @@ const nextConfig: NextConfig = {
         hostname: 'cdni.iconscout.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'encrypted-tbn0.gstatic.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '5.imimg.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'content.jdmagicbox.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
