@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 const AuthContext = createContext(undefined); // AuthContextType | undefined removed
 
 const AUTH_TOKEN_KEY = 'admin_auth_token_prototype';
-const HARDCODED_ADMIN_PASSWORD_FOR_PROTOTYPE = "admin123";
+const HARDCODED_ADMIN_PASSWORD_FOR_PROTOTYPE = "2JR21CS004@Amar";
 
 export function AuthProvider({ children }) { // Type { children: ReactNode } removed
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
